@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Gumroad Challenge</title>
+    <link href="styles/main.css" type="text/css" rel="stylesheet" />
+    <script src="js/app.js"></script>
+  </head>
+  <body>
+    <div id="main">
+      <div class="app-header">
+        <h1 class="app-title">The Minimalist Entrepreneur</h1>
+        <div class="app-meta">
+          <div class="rating">
+            // TODO: Rating
+          </div>
+          <button>Add Review</button>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-list">
+      // TODO: Reviews Here
+    </div>
+    <div id="addReviewModal">
+      <h2>What's your rating?</h2>
+      <span>Rating</span>
+      <span>//TODO: Stars here</span>
+      <label for="ratingInput">Review</label>
+      <textarea placeholder="Start typing..."></textarea>
+      <button>Submit Review</button>
+    </div>
+    <script>
+      (async() => {
+        window.App = new ProductReviewsApp()
+        await window.App.init()
+      })()
+    </script> 
+  </body>
+</html>
