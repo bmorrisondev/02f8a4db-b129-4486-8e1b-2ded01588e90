@@ -1,3 +1,58 @@
-h1 {
-  color: red;
+body {
+  width: 100vw;
+  margin: none;
+}
+
+button {
+  background-color: #fefefe;
+  border: 1px solid #ddd;
+  color: #777;
+  font-weight: bold;
+  padding: 0px 10px;
+  border-radius: 3px;
+  height: 35px;
+}
+
+#main {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+}
+
+.app-header {
+  margin-top: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.app-meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.app-meta .rating-sum {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin:20px 0px;
+}
+
+.rating {
+  font-weight: bold;
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.stars img {
+  width: 20px;
+  height: 20px;
+}
+
+.reviews-list {
+  margin-top: 10px;
+}
+
+#addReviewModal {
+  display: none;
+  visibility: hidden;
 }
