@@ -1,9 +1,20 @@
 class ProductReviewsApp {
-  constructor() {
-
+  async init() {
+    this.addReviewModal = document.getElementById("addReviewModal")
   }
 
-  async init() {
-    console.log("hello world");
+  showAddReviewModal() {
+    this.addReviewModal.style.visibility = "visible"
+    this.addReviewModal.style.display = "flex"
+  }
+
+  hideAddReviewModal() {
+    this.addReviewModal.style.visibility = "hidden"
+    this.addReviewModal.style.display = "none"
+  }
+
+  submitReview() {
+    // TODO: Implement this
+    this.hideAddReviewModal()
   }
 }
