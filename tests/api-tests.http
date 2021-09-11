@@ -13,10 +13,10 @@ Content-Type: application/json
 }
 
 ### Get Single Review
-get {{hostname}}/reviews/9a2d74d6-d3c7-427f-9af6-d7eb05d09c1d
+get {{hostname}}/reviews/309478198974874181
 
 ### Update Review
-put {{hostname}}/reviews/9a2d74d6-d3c7-427f-9af6-d7eb05d09c1d
+put {{hostname}}/reviews/309478198974874181
 Content-Type: application/json
 
 {
@@ -25,4 +25,4 @@ Content-Type: application/json
 }
 
 ### Delete Review
-delete {{hostname}}/reviews/04787d6d-e13a-43f6-92fa-c3101ae91aa5
+delete {{hostname}}/reviews/309478198974874181

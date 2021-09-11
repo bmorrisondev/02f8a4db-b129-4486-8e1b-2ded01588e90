@@ -1,48 +1,66 @@
+const FaunaService = require('@brianmmdev/faunaservice')
 const express = require('express')
 const router = express.Router()
-const { v4: uuid } = require('uuid')
 
-const data = {}
+const db = new FaunaService(process.env.FAUNA_SECRET)
+const collectionName = "reviews"
 
-router.get('/', (req, res) => {
-  res.send(data)
-})
-
-router.get('/:id', (req, res) => {
-  if(data[req.params.id]) {
-    res.send(data[req.params.id])
-  } else {
-    res.status(404).send()
+router.get('/', async (req, res) => {
+  try {
+    let data = await db.listRecords(collectionName)
+    res.send(data)
+  } catch (err) {
+    console.error(err)
+    res.status(500).send()
   }
 })
 
-router.post('/', (req, res) => {
-  let review = req.body
-  let id = uuid()
-  review.id = id
-  data[id] = review
-  res.send(review)
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    let record = await db.getRecordById(collectionName, id)
+    if(record) {
+      res.send(record)
+    } else {
+      res.status(404).send()
+    }
+  } catch (err) {
+    console.error(err)
+    res.status(500).send()
+  }
 })
 
-router.put('/:id', (req, res) => {
-  const { id } = req.params
-  if(!data[id]) {
-    res.status(404).send()
-  } else {
+router.post('/', async (req, res) => {
+  try {
     let review = req.body
-    review.id = id
-    data[id] = review
-    res.send(review)
+    let saved = await db.createRecord(collectionName, review)
+    res.send(saved)
+  } catch(err) {
+    console.error(err)
+    res.status(500).send()
   }
 })
 
-router.delete('/:id', (req, res) => {
-  const { id } = req.params
-  if(!data[id]) {
-    res.status(404).send()
-  } else {
-    delete data[req.params.id]
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    let review = req.body
+    let saved = await db.updateRecord(collectionName, id, review)
+    res.send(saved)
+  } catch (err) {
+    console.error(err)
+    res.status(500).send()
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    await db.deleteRecord(collectionName, id)
     res.status(200).send()
+  } catch (err) {
+    console.error(err)
+    res.status(500).send()
   }
 })
 

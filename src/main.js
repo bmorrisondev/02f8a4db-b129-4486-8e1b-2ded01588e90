@@ -1,5 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
+
+if(!process.env.FAUNA_SECRET) {
+  throw "FAUNA_SECRET missing from environment variables."
+}
 
 app.use(express.static('public'))
 app.use(express.json())

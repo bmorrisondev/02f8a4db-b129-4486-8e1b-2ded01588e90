@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/bmorrisondev/gumroad-challenge#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "uuid": "^8.3.2"
+    "@brianmmdev/faunaservice": "^1.0.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
   }
 }
