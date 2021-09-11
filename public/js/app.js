@@ -118,10 +118,9 @@ class ProductReviewsApp {
 
     let ratingSummaryStarsEl = document.getElementById("ratingSummaryStars")
     ratingSummaryStarsEl.innerHTML = ""
-    let rounded = ratingAvg.toFixed(0)
     for(let i = 0; i < 5; i++) {
       let starSvgEl = this.starSvg.cloneNode(true)
-      if(i < rounded) {
+      if(i < ratingAvg) {
         starSvgEl.classList.add("filled")
       }
       ratingSummaryStarsEl.appendChild(starSvgEl)
