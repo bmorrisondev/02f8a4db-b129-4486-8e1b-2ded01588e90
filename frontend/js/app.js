@@ -1,19 +1,7 @@
 class ProductReviewsApp {
   constructor() {
-    this.reviews = [
-      {
-        rating: 4,
-        reviewContent: "book was full of fluff"
-      },
-      {
-        rating: 3,
-        reviewContent: "book was fluff"
-      },
-      {
-        rating: 4,
-        reviewContent: "book was amazing"
-      },
-    ]
+    this.reviews = []
+    this.reviewBeingAdded = {}
 
     let starSvg = document.createElement("div")
     starSvg.classList.add("star")
@@ -39,6 +27,49 @@ class ProductReviewsApp {
     this.reviewsListEl = document.getElementById("reviewsList")
     this.renderReviews()
     this.renderHeaderMeta()
+    this.initAddReviewStars()
+  }
+
+  initAddReviewStars() {
+    let addReviewModalStarsEl = document.getElementById("addReviewModalStars")
+    for(let i = 0; i < 5; i++) {
+      let starSvgEl = this.starSvg.cloneNode(true)
+      starSvgEl.classList.add("add-review-star")
+      starSvgEl.dataset.rating = `${i}`
+      starSvgEl.addEventListener("click", () => this.setReviewRating(i + 1))
+      starSvgEl.addEventListener("mouseover", () => this.highlightStars(i))
+      starSvgEl.addEventListener("mouseout", () => this.resetHighlightStars())
+      addReviewModalStarsEl.appendChild(starSvgEl)
+    }
+  }
+
+  setReviewRating(rating) {
+    this.reviewBeingAdded.rating = rating
+  }
+
+  highlightStars(count) {
+    this.resetHighlightStars()
+    let addReviewStars = document.getElementsByClassName("add-review-star")
+    let addReviewStarsArr = Array.from(addReviewStars)
+    addReviewStarsArr.forEach(el => {
+      if(el.dataset.rating && el.dataset.rating <= count) {
+        el.classList.add("filled")
+      } else {
+        el.classList.remove("filled")
+      }
+    })
+  }
+
+  resetHighlightStars() {
+    let addReviewStars = document.getElementsByClassName("add-review-star")
+    let addReviewStarsArr = Array.from(addReviewStars)
+    addReviewStarsArr.forEach(el => {
+      if(el.dataset.rating && el.dataset.rating <= this.reviewBeingAdded.rating - 1) {
+        el.classList.add("filled")
+      } else {
+        el.classList.remove("filled")
+      }
+    })
   }
 
   showAddReviewModal() {
@@ -46,25 +77,47 @@ class ProductReviewsApp {
     this.addReviewModal.style.display = "flex"
   }
 
-  hideAddReviewModal() {
+  hideAddReviewModal(e) {
+    if(e && e.target && e.target.id !== "addReviewModal") {
+      // Prevent children click events from triggering hide
+      return
+    }
+    this.resetAddRatingModal()
     this.addReviewModal.style.visibility = "hidden"
     this.addReviewModal.style.display = "none"
   }
 
   submitReview() {
     // TODO: Implement this
+    let ratingInputEl = document.getElementById("ratingInput")
+    this.reviewBeingAdded.reviewContent = ratingInputEl.value
+    this.reviews.push(this.reviewBeingAdded)
+    this.renderHeaderMeta()
+    this.renderReviews()
     this.hideAddReviewModal()
   }
 
+  resetAddRatingModal() {
+    let ratingInputEl = document.getElementById("ratingInput")
+    this.reviewBeingAdded = {}
+    this.resetHighlightStars()
+    ratingInputEl.value = ""
+  }
+
   renderHeaderMeta() {
-    let ratingSum = this.reviews
-      .map(el => el.rating)
-      .reduce((acc, cur) => acc + cur)
-    let ratingAvg = ratingSum / this.reviews.length
     let ratingSummaryNumEl = document.getElementById("ratingSummaryNum")
-    ratingSummaryNumEl.innerText = ratingAvg.toFixed(1)
+    let ratingAvg = 0
+    if(this.reviews.length > 0) {
+      let ratingSum = this.reviews
+        .map(el => el.rating)
+        .reduce((acc, cur) => acc + cur)
+      ratingAvg = ratingSum / this.reviews.length
+      ratingAvg = ratingAvg.toFixed(1)
+    }
+    ratingSummaryNumEl.innerText = ratingAvg
 
     let ratingSummaryStarsEl = document.getElementById("ratingSummaryStars")
+    ratingSummaryStarsEl.innerHTML = ""
     let rounded = ratingAvg.toFixed(0)
     for(let i = 0; i < 5; i++) {
       let starSvgEl = this.starSvg.cloneNode(true)

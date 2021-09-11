@@ -1,5 +1,6 @@
 body {
   margin: none;
+  font-family: sans-serif;
 }
 
 button {
@@ -78,9 +79,13 @@ button {
 .rating .review-rating-num {
   font-weight: bold;
   font-size: 18px;
-  margin-right: 2px;
+  margin-right: 5px;
+  color: black;
 }
 
+.review-content {
+  color: #777;
+}
 
 #addReviewModal {
   display: none;
@@ -100,9 +105,27 @@ button {
   display: flex;
   flex-direction: column;
   background-color: white;
-  height: 80vh;
+  height: 50vh;
   width: 50vh;
   min-width: 600px;
   border-radius: 5px;
-  padding: 10px;
+  padding: 0px 20px;
+}
+
+.modal-body h2 {
+  margin-bottom: 0px;
+  font-size: 32px;
+}
+
+#addReviewModalStars {
+  display: flex;
+}
+
+#addReviewModalStars svg {
+  cursor: pointer;
+}
+
+#ratingInput {
+  margin-bottom: 20px;
+  border: none;
 }

@@ -28,14 +28,18 @@
         </div>
       </div>
 
-      <div id="addReviewModal">
+      <div id="addReviewModal" onclick="App.hideAddReviewModal(event);">
         <div class="modal-body">
           <h2>What's your rating?</h2>
-          <span>Rating</span>
-          <span>//TODO: Stars here</span>
-          <label for="ratingInput">Review</label>
-          <textarea placeholder="Start typing..."></textarea>
-          <button onclick="App.submitReview()">Submit Review</button>
+          <h3>Rating</h3>
+          <div id="addReviewModalStars">
+
+          </div>
+          <h3>Review</h3>
+          <textarea id="ratingInput" placeholder="Start typing..."></textarea>
+          <div>
+            <button onclick="App.submitReview()">Submit Review</button>
+          </div>
         </div>
       </div>
     </div>
