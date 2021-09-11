@@ -30,14 +30,14 @@ button {
   margin-bottom: 10px;
 }
 
-.app-meta .rating-sum {
+.app-meta .rating-summary-wrapper {
   flex: 1;
   display: flex;
   align-items: center;
   margin:20px 0px;
 }
 
-.rating {
+.rating-summary-num {
   font-weight: bold;
   font-size: 24px;
   margin-right: 10px;
@@ -51,6 +51,22 @@ button {
 .reviews-list {
   margin-top: 10px;
 }
+
+.rating {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.rating .stars {
+  margin-right: 10px;
+}
+
+.rating .review-rating-num {
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 2px;
+}
+
 
 #addReviewModal {
   display: none;
