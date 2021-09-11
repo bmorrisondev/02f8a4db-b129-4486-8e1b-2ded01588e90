@@ -1,0 +1,28 @@
+@hostname = http://localhost:5000/api
+
+### Get Reviews
+get {{hostname}}/reviews
+
+### Add Review
+post {{hostname}}/reviews
+Content-Type: application/json
+
+{
+  "rating": 5,
+  "reviewContent": "This was a good book"
+}
+
+### Get Single Review
+get {{hostname}}/reviews/9a2d74d6-d3c7-427f-9af6-d7eb05d09c1d
+
+### Update Review
+put {{hostname}}/reviews/9a2d74d6-d3c7-427f-9af6-d7eb05d09c1d
+Content-Type: application/json
+
+{
+  "rating": 3,
+  "reviewContent": "This review has been updated"
+}
+
+### Delete Review
+delete {{hostname}}/reviews/04787d6d-e13a-43f6-92fa-c3101ae91aa5
