@@ -43,9 +43,23 @@ button {
   margin-right: 10px;
 }
 
+.stars {
+  display: flex;
+}
+
 .stars img {
   width: 20px;
   height: 20px;
+}
+
+.star svg {
+  fill: #ddd;
+  width: 20px;
+  height: 20px;
+}
+
+.star.filled svg {
+  fill: rgb(236, 236, 14);
 }
 
 .reviews-list {
