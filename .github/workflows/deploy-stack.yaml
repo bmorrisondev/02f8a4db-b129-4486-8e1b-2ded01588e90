@@ -1,0 +1,42 @@
+name: Deploy Stack
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set Git Config
+        run: |
+          git config --global user.email "ci@brianmorrison.me"
+          git config --global user.name "CI"
+
+      - name: Install Packages & Build Front End
+        run: |
+          npm install
+          npm run build
+        working-directory: frontend
+
+      - name: Pull from Heroku Git
+        run: git clone https://heroku:${{secrets.HEROKU_API_KEY}}@git.heroku.com/bmorrison-gumroad-challenge.git heroku
+
+      - name: Sync Build Directory
+        run: |
+          rm -rf ./heroku/*
+          cp -r ./api/src ./heroku/src
+          cp ./api/package.json ./heroku/
+          cp -r ./frontend/build ./heroku/public
+          ls ./heroku
+
+      - name: Push to Heroku
+        run: |
+          git add .
+          git commit -m "Deploying build"
+          git push
+        working-directory: ./heroku
