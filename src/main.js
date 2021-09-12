@@ -12,7 +12,9 @@ app.use(express.json())
 const port = process.env.PORT || 5000
 
 const reviewsRoutes = require('./routes/reviews')
+const productsRoutes = require('./routes/products')
 
 app.use("/api/reviews", reviewsRoutes)
+app.use("/api/products", productsRoutes)
 
 app.listen(port, () => console.log(`Server is listening on port ${5000}`))

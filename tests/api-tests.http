@@ -1,5 +1,19 @@
 @hostname = http://localhost:5000/api
 
+### Get Products
+get {{hostname}}/products
+
+### Get Product By Id
+get {{hostname}}/products/309530617782993475
+
+### Create Product
+post {{hostname}}/products
+Content-Type: application/json
+
+{
+  "name": "The Minimalist Entrepreneur"
+}
+
 ### Get Reviews
 get {{hostname}}/reviews
 

@@ -4,12 +4,10 @@ const router = express.Router()
 const { check, validationResult } = require('express-validator');
 
 const db = new FaunaService(process.env.FAUNA_SECRET)
-const collectionName = "reviews"
+const collectionName = "products"
 
 const validations = [
-  check('productId').isString().notEmpty(),
-  check('rating').isNumeric().notEmpty(),
-  check('reviewContent').isString().notEmpty()
+  check('name').isString()
 ]
 
 router.get('/', async (req, res) => {
@@ -45,8 +43,8 @@ router.post('/', validations, async (req, res) => {
         errors: errors.array()
       })
     } else {
-      let { productId, rating, reviewContent } = req.body
-      let saved = await db.createRecord(collectionName, { productId, rating, reviewContent })
+      let { name } = req.body
+      let saved = await db.createRecord(collectionName, { name })
       res.send(saved)
     }
   } catch(err) {
@@ -64,8 +62,8 @@ router.put('/:id', async (req, res) => {
         errors: errors.array()
       })
     } else {
-      let { productId, rating, reviewContent } = req.body
-      let saved = await db.updateRecord(collectionName, id, { productId, rating, reviewContent})
+      let { name } = req.body
+      let saved = await db.updateRecord(collectionName, id, { name })
       res.send(saved)
     }
   } catch (err) {
