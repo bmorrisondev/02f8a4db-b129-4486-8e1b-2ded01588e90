@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import ReviewsList from './components/ReviewsList'
 import Stars from './components/Stars'
 import Button from './components/Button'
+import AddReviewModal from './components/AddReviewModal'
 import { useEffect, useState } from 'react'
 import reviewsApiService from './services/reviewsApiService'
 import { calculateRatingsAverage } from './utils/ratingsUtils'
@@ -31,6 +32,7 @@ const Header = styled.div`
 `
 
 function App() {
+  const [isAddReviewModalShown, setIsAddReviewModalShown] = useState(false)
   const [selectedProductId] = useState("309530617782993475")
   const [reviews, setReviews] = useState([])
   const [ratingsAvg, setRatingsAvg] = useState(0)
@@ -48,7 +50,11 @@ function App() {
   }, [])
 
   function showAddReviewModal() {
-    console.log("showAddReviewModal clicked")
+    setIsAddReviewModalShown(true)
+  }
+
+  function onHideAddReviewModal() {
+    setIsAddReviewModalShown(false)
   }
 
   return (
@@ -63,6 +69,8 @@ function App() {
         </div>
       </Header>
       <ReviewsList reviews={reviews} />
+
+      {isAddReviewModalShown && <AddReviewModal onHide={onHideAddReviewModal} />}
     </AppWrapper>
   );
 }

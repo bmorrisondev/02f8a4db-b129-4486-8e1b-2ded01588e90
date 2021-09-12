@@ -27,9 +27,9 @@ const ReviewsListWrapper = styled.div`
 
 function ReviewsList({ reviews }) {
   return (
-    <ReviewsListWrapper class="reviews-wrapper">
+    <ReviewsListWrapper className="reviews-wrapper">
       <h2>Ratings</h2>
-      <div class="reviews-list">
+      <div className="reviews-list">
         {reviews.map((el, idx) => (
           <div key={idx} className="rating">
             <Stars className="rating-stars" count={el.rating} hideCount />
