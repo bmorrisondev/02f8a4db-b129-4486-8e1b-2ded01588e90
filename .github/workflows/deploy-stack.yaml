@@ -12,9 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Update NPM
-        run: npm i -g npm@7 --registry=https://registry.npmjs.org
-
       - name: Set Git Config
         run: |
           git config --global user.email "ci@brianmorrison.me"
