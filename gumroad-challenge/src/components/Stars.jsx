@@ -17,7 +17,10 @@ function Stars({ count, hideCount }) {
 
   useEffect(() => {
     if(count) {
-      let starsToFill = Math.round(count)
+      if(count === 3.3) {
+        console.log("yay!")
+      }
+      let starsToFill = Math.round(count * 2) / 2
       setStarsToFill(starsToFill)
     }
   }, [count])
@@ -31,7 +34,8 @@ function Stars({ count, hideCount }) {
       )}
       {[1,2,3,4,5].map(el => (
         <StarIcon key={el}
-          filled={starsToFill >= el} />
+          filled={starsToFill >= el}
+          isHalfStar={starsToFill === el - 0.5} />
       ))}
     </StarsWrapper>
   )

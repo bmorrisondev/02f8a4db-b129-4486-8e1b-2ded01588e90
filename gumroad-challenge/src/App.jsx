@@ -70,7 +70,7 @@ function App() {
           <div className="rating-summary-wrapper">
             <Stars count={ratingsAvg} />
           </div>
-          <Button onClick={() => showAddReviewModal()}>Add Review</Button>
+          <Button onClick={showAddReviewModal}>Add Review</Button>
         </div>
       </Header>
       <ReviewsList reviews={reviews} />

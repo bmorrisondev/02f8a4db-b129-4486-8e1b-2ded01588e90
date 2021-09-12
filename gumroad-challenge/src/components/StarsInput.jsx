@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import StarIcon from './StarIcon'
 
@@ -10,7 +10,13 @@ function StarsInput({ onClick }) {
   const [starsToFill, setStarsToFill] = useState(0)
   const [appliedStarsToFill, setAppliedStarsToFill] = useState(0)
 
-  function onMouseOver(rating) {
+  function onMouseOver(rating, e) {
+    let rect = e.target.getBoundingClientRect()
+    let x = e.clientX - rect.left;
+    console.log(x)
+    if(x < rect.width / 2) {
+      rating = rating - 0.5
+    }
     setStarsToFill(rating)
   }
 
@@ -18,10 +24,10 @@ function StarsInput({ onClick }) {
     setStarsToFill(0)
   }
 
-  function onStarClicked(rating) {
-    setAppliedStarsToFill(rating)
+  function onStarClicked() {
+    setAppliedStarsToFill(starsToFill)
     if(onClick) {
-      onClick(rating)
+      onClick(starsToFill)
     }
   }
 
@@ -30,9 +36,11 @@ function StarsInput({ onClick }) {
       {[1,2,3,4,5].map(el => (
         <StarIcon key={el}
           filled={starsToFill > 0 ? starsToFill >= el : appliedStarsToFill >= el}
-          onClick={onClick ? () => onStarClicked(el) : null}
-          onMouseOver={() => onMouseOver(el)}
-          onMouseLeave={() => onMouseLeave(el)} />
+          isHalfStar={starsToFill > 0 ? starsToFill === el - 0.5 : appliedStarsToFill === el - 0.5}
+          onClick={onClick ? () => onStarClicked() : null}
+          onMouseOver={(e) => onMouseOver(el, e)}
+          onMouseLeave={() => onMouseLeave()}
+          large />
       ))}
     </StarsInputWrapper>
   )

@@ -65,7 +65,7 @@ router.put('/:id', async (req, res) => {
       })
     } else {
       let { productId, rating, reviewContent } = req.body
-      let saved = await db.updateRecord(collectionName, id, { productId, rating, reviewContent})
+      let saved = await db.updateRecord(collectionName, id, { productId, rating, reviewContent })
       res.send(saved)
     }
   } catch (err) {
