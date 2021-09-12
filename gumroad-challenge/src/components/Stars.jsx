@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import StarIcon from './StarIcon'
 
@@ -13,6 +13,15 @@ const StarsWrapper = styled.div`
 `
 
 function Stars({ count, hideCount }) {
+  const [starsToFill, setStarsToFill] = useState(0)
+
+  useEffect(() => {
+    if(count) {
+      let starsToFill = Math.round(count)
+      setStarsToFill(starsToFill)
+    }
+  }, [count])
+
   return (
     <StarsWrapper>
       {count && !hideCount && (
@@ -20,11 +29,11 @@ function Stars({ count, hideCount }) {
           { count }
         </div>
       )}
-      <StarIcon filled={count >= 1} />
-      <StarIcon filled={count >= 2} />
-      <StarIcon filled={count >= 3} />
-      <StarIcon filled={count >= 4} />
-      <StarIcon filled={count >= 5} />
+      <StarIcon filled={starsToFill >= 1} />
+      <StarIcon filled={starsToFill >= 2} />
+      <StarIcon filled={starsToFill >= 3} />
+      <StarIcon filled={starsToFill >= 4} />
+      <StarIcon filled={starsToFill >= 5} />
     </StarsWrapper>
   )
 }
