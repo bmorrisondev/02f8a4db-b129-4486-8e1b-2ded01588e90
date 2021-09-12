@@ -14,7 +14,9 @@ const addReview = async function (review) {
   await res.json()
 }
 
-export default {
+const ReviewsApiService = {
   fetchReviews,
   addReview
 }
+
+export default ReviewsApiService
