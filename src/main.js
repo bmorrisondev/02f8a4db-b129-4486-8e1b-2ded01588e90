@@ -17,4 +17,4 @@ const productsRoutes = require('./routes/products')
 app.use("/api/reviews", reviewsRoutes)
 app.use("/api/products", productsRoutes)
 
-app.listen(port, () => console.log(`Server is listening on port ${5000}`))
+app.listen(port, () => console.log(`Server is listening on port ${port}`))

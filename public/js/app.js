@@ -2,6 +2,7 @@ class ProductReviewsApp {
   constructor() {
     this.reviews = []
     this.reviewBeingAdded = {}
+    this.selectedProductId = "309530617782993475"
 
     let starSvg = document.createElement("div")
     starSvg.classList.add("star")
@@ -25,7 +26,7 @@ class ProductReviewsApp {
   async init() {
     this.addReviewModal = document.getElementById("addReviewModal")
     this.reviewsListEl = document.getElementById("reviewsList")
-    await this.fetchReviews("309530617782993475")
+    await this.fetchReviews(this.selectedProductId)
     this.renderReviews()
     this.renderHeaderMeta()
     this.initAddReviewStars()
@@ -94,11 +95,18 @@ class ProductReviewsApp {
     this.addReviewModal.style.display = "none"
   }
 
-  submitReview() {
-    // TODO: Implement this
+  async submitReview() {
     let ratingInputEl = document.getElementById("ratingInput")
+    this.reviewBeingAdded.productId = this.selectedProductId
     this.reviewBeingAdded.reviewContent = ratingInputEl.value
     this.reviews.push(this.reviewBeingAdded)
+    await fetch("/api/reviews", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(this.reviewBeingAdded)
+    })
     this.renderHeaderMeta()
     this.renderReviews()
     this.hideAddReviewModal()
