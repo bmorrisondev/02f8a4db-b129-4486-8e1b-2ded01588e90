@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import Stars from './Stars'
+import StarsInput from './StarsInput'
 import Button from './Button'
+import reviewsApiService from '../services/reviewsApiService'
 
 const AddReviewModalWrapper = styled.div`
   display: flex;
@@ -32,10 +33,6 @@ const AddReviewModalWrapper = styled.div`
 
     #addReviewModalStars {
       display: flex;
-
-      svg {
-        cursor: pointer;
-      }
     }
 
     #ratingInput {
@@ -45,7 +42,9 @@ const AddReviewModalWrapper = styled.div`
   }
 `
 
-function AddReviewModal({ onHide }) {
+function AddReviewModal({ productId, onHide, onReviewSubmitted }) {
+  const [rating, setRating] = useState(0)
+  const [input, setInput] = useState("")
 
   function hideModal() {
     if(onHide) {
@@ -53,8 +52,25 @@ function AddReviewModal({ onHide }) {
     }
   }
 
-  function onSubmitReviewClicked() {
-    // TODO: Remove after implementation
+  function onStarClicked(rating) {
+    setRating(rating)
+  }
+
+  async function onSubmitReviewClicked() {
+    await reviewsApiService.addReview({
+      reviewContent: input,
+      rating,
+      productId
+    })
+
+    if(onReviewSubmitted) {
+      onReviewSubmitted({
+        reviewContent: input,
+        rating,
+        productId
+      })
+    }
+
     hideModal()
   }
 
@@ -64,10 +80,15 @@ function AddReviewModal({ onHide }) {
         <h2>What's your rating?</h2>
         <h3>Rating</h3>
         <div id="addReviewModalStars">
-          <Stars />
+          <StarsInput onClick={onStarClicked} />
         </div>
         <h3>Review</h3>
-        <textarea id="ratingInput" placeholder="Start typing..."></textarea>
+        <textarea
+          id="ratingInput"
+          placeholder="Start typing..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}>
+        </textarea>
         <div>
           <Button onClick={() => onSubmitReviewClicked()}>Submit Review</Button>
         </div>

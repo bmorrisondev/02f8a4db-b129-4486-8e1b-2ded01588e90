@@ -29,11 +29,10 @@ function Stars({ count, hideCount }) {
           { count }
         </div>
       )}
-      <StarIcon filled={starsToFill >= 1} />
-      <StarIcon filled={starsToFill >= 2} />
-      <StarIcon filled={starsToFill >= 3} />
-      <StarIcon filled={starsToFill >= 4} />
-      <StarIcon filled={starsToFill >= 5} />
+      {[1,2,3,4,5].map(el => (
+        <StarIcon key={el}
+          filled={starsToFill >= el} />
+      ))}
     </StarsWrapper>
   )
 }

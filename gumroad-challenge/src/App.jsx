@@ -42,12 +42,11 @@ function App() {
       let reviews = await reviewsApiService.fetchReviews(selectedProductId)
       setReviews(reviews)
 
-      // Calculate ratings average
       let avg = calculateRatingsAverage(reviews)
       setRatingsAvg(avg)
     }
     init()
-  }, [])
+  }, [selectedProductId])
 
   function showAddReviewModal() {
     setIsAddReviewModalShown(true)
@@ -55,6 +54,12 @@ function App() {
 
   function onHideAddReviewModal() {
     setIsAddReviewModalShown(false)
+  }
+
+  function onReviewSubmitted(review) {
+    let _reviews = reviews
+    _reviews.push(review)
+    setReviews([..._reviews])
   }
 
   return (
@@ -70,7 +75,12 @@ function App() {
       </Header>
       <ReviewsList reviews={reviews} />
 
-      {isAddReviewModalShown && <AddReviewModal onHide={onHideAddReviewModal} />}
+      {isAddReviewModalShown && (
+        <AddReviewModal
+          onHide={onHideAddReviewModal}
+          productId={selectedProductId}
+          onReviewSubmitted={onReviewSubmitted}/>
+      )}
     </AppWrapper>
   );
 }

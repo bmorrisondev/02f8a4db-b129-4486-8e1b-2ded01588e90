@@ -10,12 +10,18 @@ const StarIconWrapper = styled.div`
     stroke-miterlimit: 2;
     width: 20px;
     height: 20px;
+    cursor: ${props => props.clickable ? "pointer" : "inherit"}
   }
 `
 
-function StarIcon({ filled }) {
+function StarIcon({ filled, onClick, onMouseOver, onMouseLeave }) {
   return (
-    <StarIconWrapper filled={filled}>
+    <StarIconWrapper
+      filled={filled}
+      clickable={onClick ? true : false}
+      onClick={onClick ? onClick : null}
+      onMouseOver={onMouseOver ? onMouseOver : null}
+      onMouseLeave={onMouseLeave ? onMouseLeave : null}>
       <svg
         width="100%"
         height="100%"
