@@ -62,7 +62,7 @@ function App() {
           <Button onClick={() => showAddReviewModal()}>Add Review</Button>
         </div>
       </Header>
-      <ReviewsList />
+      <ReviewsList reviews={reviews} />
     </AppWrapper>
   );
 }
