@@ -1,9 +1,9 @@
-exports.fetchReviews = async function (productId) {
+const fetchReviews = async function (productId) {
   let res = await fetch (`/api/products/${productId}/reviews`)
   return await res.json()
 }
 
-exports.addReview = async function (review) {
+const addReview = async function (review) {
   let res = await fetch(`/api/reviews`, {
     method: "post",
     headers: {
@@ -12,4 +12,9 @@ exports.addReview = async function (review) {
     body: JSON.stringify(review)
   })
   await res.json()
+}
+
+export default {
+  fetchReviews,
+  addReview
 }
