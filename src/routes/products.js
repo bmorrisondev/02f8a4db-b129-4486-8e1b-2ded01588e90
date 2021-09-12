@@ -35,6 +35,22 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+router.get('/:id/reviews', async (req, res) => {
+  try {
+    const { id } = req.params
+    let records = await db.fetchRecordsInIndex("ReviewsByProductId", id)
+
+    if(records) {
+      res.send(records)
+    } else {
+      res.status(404).send()
+    }
+  } catch (err) {
+    console.error(err)
+    res.status(500).send()
+  }
+})
+
 router.post('/', validations, async (req, res) => {
   try {
     const errors = validationResult(req)

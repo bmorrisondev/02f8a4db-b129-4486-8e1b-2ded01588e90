@@ -25,9 +25,16 @@ class ProductReviewsApp {
   async init() {
     this.addReviewModal = document.getElementById("addReviewModal")
     this.reviewsListEl = document.getElementById("reviewsList")
+    await this.fetchReviews("309530617782993475")
     this.renderReviews()
     this.renderHeaderMeta()
     this.initAddReviewStars()
+  }
+
+  async fetchReviews(productId) {
+    let res = await fetch (`/api/products/${productId}/reviews`)
+    let json = await res.json()
+    this.reviews = json
   }
 
   initAddReviewStars() {

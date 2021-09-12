@@ -6,6 +6,9 @@ get {{hostname}}/products
 ### Get Product By Id
 get {{hostname}}/products/309530617782993475
 
+### Get Reviews By Product Id
+get {{hostname}}/products/309530617782993475/reviews
+
 ### Create Product
 post {{hostname}}/products
 Content-Type: application/json
@@ -22,8 +25,9 @@ post {{hostname}}/reviews
 Content-Type: application/json
 
 {
-  "rating": 5,
-  "reviewContent": "This was a good book"
+  "productId": "309530617782993475",
+  "rating": 4,
+  "reviewContent": "book was amazing"
 }
 
 ### Get Single Review
