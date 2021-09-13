@@ -46,6 +46,13 @@ function AddReviewModal({ productId, onHide, onReviewSubmitted }) {
   const [rating, setRating] = useState(0)
   const [input, setInput] = useState("")
 
+  function onBackgroundClicked(e) {
+    if(e && e.target && e.target.id === "addReviewModal") {
+      // Prevent children click events from triggering hide
+      hideModal()
+    }
+  }
+
   function hideModal() {
     if(onHide) {
       onHide()
@@ -75,7 +82,7 @@ function AddReviewModal({ productId, onHide, onReviewSubmitted }) {
   }
 
   return (
-    <AddReviewModalWrapper>
+    <AddReviewModalWrapper id="addReviewModal" onClick={onBackgroundClicked}>
       <div className="modal-body">
         <h2>What's your rating?</h2>
         <h3>Rating</h3>
